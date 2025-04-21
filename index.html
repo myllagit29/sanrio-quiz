@@ -26,12 +26,12 @@
             box-shadow: 0 0 20px rgba(255,182,193,0.4);
         }
         h2 {
-            font-size: 1.8em;
+            font-size: 2rem;
             color: #ff69b4;
             margin-bottom: 20px;
         }
         h3 {
-            font-size: 1.4em;
+            font-size: 1.5rem;
             color: #ff69b4;
             margin-bottom: 20px;
         }
@@ -39,7 +39,7 @@
             background: #ffb6c1;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 25px;
             margin: 10px 5px;
             border-radius: 12px;
             cursor: pointer;
@@ -54,9 +54,34 @@
             background: #ff69b4;
         }
         img {
-            max-width: 300px;
+            max-width: 100%;
             margin-top: 20px;
             border-radius: 15px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 1.8rem;
+            }
+            h3 {
+                font-size: 1.2rem;
+            }
+            button {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 1.5rem;
+            }
+            h3 {
+                font-size: 1rem;
+            }
+            button {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
