@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Which Sanrio Character Are You?</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: #fff5f8;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz, #startPage {
+            background: #ffffff;
+            border: 2px dashed #ffb6c1;
+            padding: 20px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255,182,193,0.4);
+        }
+        h2 {
+            font-size: 1.8em;
+            color: #ff69b4;
+            margin-bottom: 20px;
+        }
+        h3 {
+            font-size: 1.4em;
+            color: #ff69b4;
+            margin-bottom: 20px;
+        }
+        button {
+            background: #ffb6c1;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px 5px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: block;
+            width: 90%;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        button:hover {
+            background: #ff69b4;
+        }
+        img {
+            max-width: 300px;
+            margin-top: 20px;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="startPage">
+    <h2>✨ Which Sanrio Character Matches Your Vibe? ✨</h2>
+    <p>Take this cute quiz and find out!</p>
+    <button onclick="startQuiz()">Start Quiz!</button>
+</div>
+
+<div id="quiz" style="display:none;">
+    <div id="question"></div>
+</div>
+
+<script>
+    const smartLink = "https://uvoonaix.top/4/9241758";  // coloque aqui seu link afiliado!
+
+    const questions = [
+        "You prefer spending your day:",
+        "Your ideal weekend involves:",
+        "When meeting new people, you feel:",
+        "Which vibe describes you best?",
+        "You love to:",
+        "Your favorite place is:",
+        "People describe you as:",
+        "You are happiest when:",
+        "Your favorite thing to do alone is:",
+        "You solve problems by:",
+        "When you're with friends, you're usually:",
+        "Your style can be described as:",
+        "You feel most proud when:",
+        "Your friends can always count on you for:",
+        "In a new adventure, you are the one who:"
+    ];
+
+    const answers = [
+        ["Being with family & friends", "Playing music", "Exploring outdoors", "Relaxing at home", "Doing something bold", "Dreaming & imagining", "Eating good food"],
+        ["Visiting loved ones", "Writing or playing music", "Going hiking", "Solving puzzles", "Skating or gaming", "Drawing or daydreaming", "Relaxing & snacking"],
+        ["Excited and open!", "Kind but shy", "Eager and adventurous", "A bit quiet", "Cool and sarcastic", "Curious and dreamy", "Chill and friendly"],
+        ["Sweet and social", "Caring and calm", "Energetic and fun", "Quiet but clever", "Independent and bold", "Cute and imaginative", "Cozy and relaxed"],
+        ["Make new friends", "Help others", "Explore nature", "Organize things", "Break the rules", "Imagine new worlds", "Find the best snacks"],
+        ["With family", "In a flower field", "By a lake or forest", "At home with books", "At the skatepark", "Above the clouds", "At a cozy café"],
+        ["Warm-hearted", "Gentle and loyal", "Optimistic", "Tidy and calm", "Honest and sarcastic", "Playful and sweet", "Caring and relaxed"],
+        ["Making people smile", "Helping a friend", "Starting a new trip", "Solving riddles", "Being a rebel", "Seeing cute things", "Eating something tasty"],
+        ["Listening to music", "Reading poetry", "Sketching nature", "Solving puzzles", "Skating", "Drawing", "Relaxing with snacks"],
+        ["Talking with friends", "Offering help", "Taking action", "Thinking deeply", "Taking risks", "Dreaming big", "Staying chill"],
+        ["The listener", "The helper", "The leader", "The thinker", "The joker", "The dreamer", "The comforter"],
+        ["Colorful and cute", "Soft and floral", "Sporty", "Simple and neat", "Unique and edgy", "Fluffy and dreamy", "Comfy and cozy"],
+        ["Helping someone", "Finishing a song", "Finding new places", "Solving a hard puzzle", "Doing something bold", "Creating something cute", "Sharing good food"],
+        ["A shoulder to cry on", "Advice and support", "Exciting adventures", "A clever solution", "Some real talk", "Positive vibes", "A warm hug and snacks"],
+        ["Leads the group", "Gives advice", "Finds new paths", "Reads the map", "Tests the limits", "Makes everyone smile", "Finds the best snacks"]
+    ];
+
+    const characters = ["Hello Kitty", "My Melody", "Keroppi", "Chococat", "Badtz-Maru", "Cinnamoroll", "Pompompurin"];
+    let counts = Object.fromEntries(characters.map(name => [name, 0]));
+    let currentQuestion = 0;
+
+    const images = {
+        "Hello Kitty": "https://i.pinimg.com/736x/17/fa/9c/17fa9cac4272d32b56270cf2f3bc9c70.jpg",
+        "My Melody": "https://i.pinimg.com/736x/96/83/9e/96839eb7bfad8469e9d87b9c135cae92.jpg",
+        "Keroppi": "https://i.pinimg.com/736x/55/14/b2/5514b2422dce7dc1a891db0145e34ce7.jpg",
+        "Chococat": "https://i.pinimg.com/736x/69/f3/4b/69f34b8de1d3f58079406b00fe128154.jpg",
+        "Badtz-Maru": "https://i.pinimg.com/736x/0c/f7/20/0cf720f95d9f9b14cd02b9ec1d9e08ec.jpg",
+        "Cinnamoroll": "https://i.pinimg.com/736x/53/cd/fe/53cdfe8ce5cfdff5cb40fc58dd8f2060.jpg",
+        "Pompompurin": "https://i.pinimg.com/736x/07/70/94/07709494529dddf66f43c0a98858042e.jpg"
+    };
+
+    function startQuiz() {
+        window.open(smartLink, "_blank");  // abre seu link em outra aba
+        document.getElementById('startPage').style.display = 'none';
+        document.getElementById('quiz').style.display = 'block';
+        showQuestion();
+    }
+
+    function showQuestion() {
+        if (currentQuestion >= questions.length) {
+            showResult();
+            return;
+        }
+        let questionBlock = `<h3>${currentQuestion + 1}. ${questions[currentQuestion]}</h3>`;
+        answers[currentQuestion].forEach((answer, index) => {
+            const char = characters[index];
+            questionBlock += `<button onclick="selectAnswer('${char}')">${answer}</button>`;
+        });
+        document.getElementById('question').innerHTML = questionBlock;
+    }
+
+    function selectAnswer(character) {
+        counts[character]++;
+        if (Math.random() < 0.4) {
+            window.open(smartLink, "_blank");
+        }
+        currentQuestion++;
+        showQuestion();
+    }
+
+    function showResult() {
+        let topCharacter = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+        document.getElementById('quiz').innerHTML = `
+            <h2>You are: ${topCharacter}!</h2>
+            <img src="${images[topCharacter]}" alt="${topCharacter}">
+            <p><a href="${smartLink}" target="_blank">Discover cute things here!🎀💐</a></p>
+        `;
+    }
+</script>
+
+</body>
+</html>
